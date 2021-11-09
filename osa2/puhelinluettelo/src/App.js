@@ -70,6 +70,9 @@ const App = () => {
       setTimeout(() => {
         setMessage(null)
       }, 3000)
+      .catch(error => {
+        console.log(error.response.data)
+      })
       setPersons(persons.concat(returnedPersons))
       setNewName('')
       setNewNumber('')   

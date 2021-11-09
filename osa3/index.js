@@ -1,10 +1,10 @@
 require('dotenv').config()
-const express = require('express')
-const morgan = require('morgan')
-const cors = require('cors')
-const Person = require('./models/person')
+var express = require('express')
+var morgan = require('morgan')
+var cors = require('cors')
+var Person = require('./models/person')
 
-const app = express()
+var app = express()
 app.use(express.json())
 app.use(cors())
 app.use(express.static('build'))
@@ -68,7 +68,10 @@ app.use(morgan(":method :url :status :res[content-length] - :response-time ms :i
     })
   
     person.save().then(savedPerson => {
-    response.json(savedPerson)
+      return savedPerson.toJSON()
+    })
+    .then(savedAndFormattedPerson =>{
+      response.json(savedAndFormattedPerson)
     })
     .catch((error) => next(error))
   })
@@ -83,7 +86,7 @@ app.use(morgan(":method :url :status :res[content-length] - :response-time ms :i
   
     Person.findByIdAndUpdate(request.params.id, person, {new: true})
       .then(updatedPerson => {
-        response.json(updatedPerson)
+        response.json(updatedPerson.toJSON())
       })
       .catch(error => next(error))
   })
@@ -99,6 +102,8 @@ app.use(morgan(":method :url :status :res[content-length] - :response-time ms :i
   
     if (error.name === 'CastError') {
       return response.status(400).send({ error: 'malformatted id' })
+    } else if (error.name === 'ValidationError') {
+      return response.status(400).json({ error: error.message })
     }
   
     next(error)

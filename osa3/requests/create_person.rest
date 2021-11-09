@@ -1,0 +1,5 @@
+POST https://fullstack-puhelinluettelohp.herokuapp.com/api/persons Content-Type: application/json
+
+{
+"name": "Meikä Mandoliini", "number": "123456789"
+}
