@@ -1,0 +1,5 @@
+PUT http://localhost:3003/api/blogs/6193d66502e23956c6b49e6f Content-Type: application/json
+
+{
+    "title" : "Test", "author": "Meikä", "url": "https://kissa.com", "likes": "2"
+}
