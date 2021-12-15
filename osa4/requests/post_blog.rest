@@ -1,1 +1,7 @@
 POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhlbWFwaWdnIiwiaWQiOiI2MWI4Yjk3YjliOWUwOWY0OGJlYzE5ZTAiLCJpYXQiOjE2Mzk1NjcxODR9.crY9uTVLgKUY3BPmu_RUcfcLrMb006-Jvk-JUYjGozg
+
+{
+    "title": "testi", "author": "Henri", "url": "www.kkoira.com", "likes": 12345, "user": "61b8b97b9b9e09f48bec19e0"
+}
