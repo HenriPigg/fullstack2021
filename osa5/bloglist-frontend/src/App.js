@@ -5,6 +5,7 @@ import loginService from './services/login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
+  const [newBlog, setNewBlog] = useState('')
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
@@ -86,6 +87,37 @@ const App = () => {
     )
   }
 
+  const addBlog = (event) => {
+    event.preventDefault()
+    const blogObject = {
+      content: newBlog,
+    }
+
+    blogService
+      .create(blogObject)
+        .then(returnedBlog => {
+        setBlogs(blogs.concat(returnedBlog))
+        setNewBlog('')
+      })
+  }
+  
+
+  const handleBlogChange = (event) => {
+    console.log(event.target.value)
+    setNewBlog(event.target.value)
+  }
+
+  const blogForm = () => (
+    <form onSubmit={addBlog}>
+      title and author:
+      <input
+        value={newBlog}
+        onChange={handleBlogChange}
+      />
+      <button type="submit">create</button>
+    </form>  
+  )
+
   return (
     <div>
       <p>{user.name} logged in</p> <button onClick={handleLogout}>log out</button>
@@ -93,6 +125,9 @@ const App = () => {
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
+
+      {blogForm()}
+      
     </div>
   )
 }
